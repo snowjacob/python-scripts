@@ -36,6 +36,15 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
     interpolation='bilinear'
 )
 
+#Hyperparamters
+epochs = 5
+
+lr = 0.001
+beta_1 = 0.9
+beta_2 = 0.999
+epsilon = 1e-07
+weight_decay = 0.0
+
 AUTOTUNE = tf.data.AUTOTUNE
 
 train_ds = train_ds.cache().prefetch(buffer_size=AUTOTUNE)
@@ -52,17 +61,17 @@ model = Sequential([
     layers.MaxPooling2D(),
     layers.Flatten(),
     layers.Dense(20, activation=PReLU()),
-    layers.Dense(10, activation='sigmoid')
-    layers.Dense(activation='softmax')
+    layers.Dense(10, activation=PReLU()),
+    layers.Dense(1, activation='sigmoid')
 ])
 
-model.compile(optimizer='adagrad',
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+optimizer = tf.keras.optimizers.Adam(learning_rate=lr, beta_1=beta_1, beta_2=beta_2, epsilon=epsilon, weight_decay = weight_decay)
+
+model.compile(optimizer=optimizer,
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False),
               metrics=['accuracy'])
 
 model.summary()
-
-epochs = 3
 
 history = model.fit(
     train_ds,

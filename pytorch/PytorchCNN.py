@@ -6,7 +6,7 @@ import numpy as np
 
 # Author : Jacob Snow
 
-parser = argparse.ArgumentParser(prog='task4.py')
+parser = argparse.ArgumentParser(prog='PytorchCNN.py')
 parser.add_argument('--train', type=str, action='store', required=True)
 parser.add_argument('--dev', type=str, action='store', required=True)
 

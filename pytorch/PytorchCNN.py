@@ -178,5 +178,5 @@ for file_path in test_files:
 
 predictions = np.array(predictions, dtype=np.float32)
 
-np.save('task4_predictions.npy', predictions)
+np.save('predictions.npy', predictions)
 
